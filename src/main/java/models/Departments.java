@@ -25,4 +25,18 @@ public class Departments {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Departments)) return false;
+        Departments departments = (Departments) o;
+        return id == departments.id &&
+                Objects.equals(name, departments.name);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(name, id);
+    }
 }
