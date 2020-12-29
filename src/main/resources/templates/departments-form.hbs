@@ -1,7 +1,7 @@
 {{#partial "content"}}
     {{#if editDepartments}}
         <h1>Edit this Department</h1>
-        <form action="/departments/{{category.id}}" method="post">
+        <form action="/departments/{{department.id}}" method="post">
             <label for="name">Edit this Department's name</label>
             <input id="newDepartmentName" name="newDepartmentName" type="text" value="{{department.name}}">
             <button type="submit" class="btn btn-default">Submit</button>

@@ -8,10 +8,18 @@ import static org.junit.Assert.*;
 import junit.framework.TestCase;
 
 public class StaffTest  {
-   // @Test
-    //public void NewStaffGetsCreatedCorrectlyCreate_true() throws Exception{
-      //  Staff staff = setUpNewStaff();
-        //assertEquals(true, staff instanceof Staff);
-    //}
+    @Test
+    public void NewStaffGetsCreatedCorrectlyCreate_true() throws Exception{
+        Staff staff = setUpNewStaff();
+        assertEquals(true, staff instanceof Staff);
+    }
 
+    @Test
+    public void StaffInstantiatesWithDescription_true() throws Exception{
+        Staff staff = setUpNewStaff();
+        assertEquals("Nancy Karanja", staff.getDescription());
+    }
+    public Staff setUpNewStaff() {
+        return new Staff("Nancy Karanja", departmentId: 1);
+    }
 }
