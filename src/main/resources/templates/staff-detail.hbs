@@ -1,0 +1,11 @@
+{{#partial "content"}}
+    <p>Description: {{staff.description }}</p>
+    <p>Department of this staff: {{ department.name }}</p>
+
+    <p>
+        <a href="/staff/{{staff.id}}/edit">Edit Staff</a><br>
+        <a href="/departments/{{staff.departmentId}}/staff/{{staff.id}}/delete">Remove this staff</a>
+    </p>
+{{/partial}}
+
+{{> layout.hbs}}
