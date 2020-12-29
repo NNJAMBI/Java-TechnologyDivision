@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Departments {
@@ -13,7 +14,7 @@ public class Departments {
     public String getName() {
         return name;
     }
-
+  
     public int getId() {
         return id;
     }
