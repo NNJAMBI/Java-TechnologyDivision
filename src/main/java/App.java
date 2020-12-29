@@ -26,14 +26,30 @@ public class App {
 //get:show form to create a new department
         get("/departments/new",(request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "departments-form-hbs");
+            return new ModelAndView(model, "departments-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new department
         post("/departments/", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            Departments newDepartment = new Departments(name);
+            response.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine());
+
+        //get:show add a new staff form
+        get("staff/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "staff-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        //post:process add new staff form
+        post("/staff", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
             String description = request.queryParams("description");
-            Departments newDepartment = new Departments(description);
+            int departmentId = Integer.parseInt(request.queryParams("departmentId"));
+            Staff newStaff = new Staff(description, departmentId);
             response.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
