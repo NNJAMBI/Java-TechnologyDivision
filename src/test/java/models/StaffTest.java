@@ -19,7 +19,9 @@ public class StaffTest  {
         Staff staff = setUpNewStaff();
         assertEquals("Nancy Karanja", staff.getDescription());
     }
+
+    //helper methods
     public Staff setUpNewStaff() {
-        return new Staff("Nancy Karanja", departmentId: 1);
+        return new Staff("Nancy Karanja", 1);
     }
 }

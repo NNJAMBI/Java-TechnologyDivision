@@ -21,4 +21,22 @@ public void setDepartmentId(int departmentId) {
     this.departmentId = departmentId;
 }
 
+@Override
+    public int hashCode() {
+    return Objects.hash(description, id);
+}
+public void setDescription(String description) {
+    this.description = description;
+}
+public void setId(int id) {
+    this.id = id;
+}
+
+public String getDescription() {
+    return description;
+}
+
+public int getId() {
+    return id;
+}
 }
