@@ -83,11 +83,11 @@ public class Sql2oStaffDaoTest {
     }
 
     @Test
-    public void departmentIdIsReturnedCorrectly() throws Exception{
+    public void categoryIdIsReturnedCorrectly() throws Exception {
         Staff staff = setupNewStaff();
-        int originalDepartmentId = staff.getDepartmentId();
+        int originalDepId = staff.getDepartmentId();
         staffDao.add(staff);
-        assertEquals(originalDepartmentId, staffDao.findById(staff.getId().getDepartmentId));
+        assertEquals(originalDepId, staffDao.findById(staff.getId()).getDepartmentId());
     }
 
     public Staff setupNewStaff(){

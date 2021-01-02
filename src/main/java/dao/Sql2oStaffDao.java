@@ -1,18 +1,18 @@
 package dao;
 
 import models.Staff;
-import org.graalvm.compiler.debug.CloseableCounter;
 import org.sql2o.*;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 
-public class Sql2oStaffDao implements StaffDao{
-   private final Sql2o sql2o;
+public class Sql2oStaffDao implements StaffDao { //implementing our interface
 
-   public Sql2oStaffDao(Sql2o sql2o) {
-       this.sql2o = sql2o;
-   }
+    private final Sql2o sql2o;
+
+    public Sql2oStaffDao(Sql2o sql2o){
+        this.sql2o = sql2o; //making the sql2o object available everywhere so we can call methods in it
+    }
 
    @Override
     public void add(Staff staff) {
@@ -35,6 +35,17 @@ public class Sql2oStaffDao implements StaffDao{
                    .executeAndFetch(Staff.class);
        }
    }
+
+    @Override
+    public Staff findById(int id) {
+        try(Connection con = sql2o.open()){
+            return con.createQuery("SELECT * FROM staff WHERE id = :id")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Staff.class);
+        }
+    }
+
+
     @Override
     public void update(int id, String newDescription, int newDepartmentId){
         String sql = "UPDATE staff SET (description, departmentId) = (:description, :departmentId) WHERE id=:id";   //raw sql
