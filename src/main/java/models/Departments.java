@@ -37,7 +37,8 @@ public class Departments {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(name, id);
     }
+
 }

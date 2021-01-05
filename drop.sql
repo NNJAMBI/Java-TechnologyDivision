@@ -1,0 +1,2 @@
+DROP DATABASE technologydivision_test;
+DROP DATABASE technologydivision;

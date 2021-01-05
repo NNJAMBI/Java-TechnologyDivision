@@ -1,9 +1,13 @@
 {{#partial "content"}}
-    <h1>{{department.name}}</h1>
+    <h1>{{departments.name}}</h1>
     <p>List of all DIT staff in this Department</p>
     <ul>
         {{#each staff}}
-            <li><p><a href="/departments/{{department.id}}/staff/{{id}}">{{description}}</a> </p></li>
+            <li><p><a href="/departments/{{departments.id}}/staff/{{id}}">{{description}}</a> </p></li>
         {{/each}}
     </ul>
+    <a href="/departments/{{departments.id}}/edit">Edit this department</a><br>
+    <a href="/departments/{{departments.id}}/delete">DELETE this department</a>
 {{/partial}}
+
+{{> layout.hbs}}

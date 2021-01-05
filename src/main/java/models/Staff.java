@@ -21,12 +21,22 @@ public void setDepartmentId(int departmentId) {
     this.departmentId = departmentId;
 }
 
-@Override
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Staff)) return false;
+        Staff staff = (Staff) o;
+        return id == staff.id &&
+                Objects.equals(description, staff.description);
+    }
+    @Override
     public int hashCode() {
     return Objects.hash(description, id);
 }
+
 public void setDescription(String description) {
     this.description = description;
+
 }
 public void setId(int id) {
     this.id = id;

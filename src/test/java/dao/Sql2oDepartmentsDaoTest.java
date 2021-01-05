@@ -14,6 +14,7 @@ import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+
 public class Sql2oDepartmentsDaoTest {
     private static Sql2oDepartmentsDao departmentsDao;
     private static Sql2oStaffDao staffDao;
@@ -107,7 +108,7 @@ public class Sql2oDepartmentsDaoTest {
         Staff otherStaff = new Staff("James Mbugua", departmentsId);
         Staff thirdStaff = new Staff("Joyce Wambui", departmentsId);
         staffDao.add(newStaff);
-        staffDao.add(otherStaff); //
+        staffDao.add(otherStaff);
         assertEquals(2, departmentsDao.getAllStaffByDepartments(departmentsId).size());
         assertTrue(departmentsDao.getAllStaffByDepartments(departmentsId).contains(newStaff));
         assertTrue(departmentsDao.getAllStaffByDepartments(departmentsId).contains(otherStaff));

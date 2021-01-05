@@ -12,19 +12,10 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
 
 public class App {
-    static int getHerokuAssignedPort() {
-        ProcessBuilder processBuilder = new ProcessBuilder();
-        if (processBuilder.environment().get("port") != null) {
-            return Integer.parseInt(processBuilder.environment().get("port"));
-        }
-        return 4567; //return default localhost port if Heroku-port is not set
-    }
-
     public static void main(String[] args) {
-        port(getHerokuAssignedPort());
         staticFileLocation("/public");
         String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
-        Sql2o sql2o = new Sql2o(connectionString, "", "");
+        Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
         Sql2oStaffDao staffDao = new Sql2oStaffDao(sql2o);
         Sql2oDepartmentsDao departmentsDao = new Sql2oDepartmentsDao(sql2o);
 
@@ -47,11 +38,11 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //post: process a form to create a new department
-        post("/departments/", (request, response) -> {
+        post("/departments", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             String name = request.queryParams("name");
-            Departments newDepartment = new Departments(name);
-            departmentsDao.add(newDepartment);
+            Departments newDepartments = new Departments(name);
+            departmentsDao.add(newDepartments);
             response.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
@@ -87,7 +78,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
         //get:remove all staff
-        get("/", (request, response) -> {
+        get("/staff/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             staffDao.clearAllStaff();
             response.redirect("/");
@@ -97,11 +88,12 @@ public class App {
         //get a specific department and all the staff in it
         get("/departments/:id", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfDepartmentToFind = Integer.parseInt((request.params("id")));
-            Departments foundDepartment = departmentsDao.findById(idOfDepartmentToFind);
-            model.put("department", foundDepartment);
-            List<Staff> allStaffByDepartment = departmentsDao.getAllStaffByDepartments(idOfDepartmentToFind);
-            model.put("staff", allStaffByDepartment);
+            int idOfDepartmentToFind = Integer.parseInt(request.params("id"));
+            Departments foundDepartments = departmentsDao.findById(idOfDepartmentToFind);
+            model.put("departments", foundDepartments);
+            //System.out.println(foundDepartments.getId());
+            List<Staff> allStaffByDepartments = departmentsDao.getAllStaffByDepartments(idOfDepartmentToFind);
+            model.put("staff", allStaffByDepartments);
             model.put("departments", departmentsDao.getAll());
             return new ModelAndView(model, "departments-detail.hbs");
         }, new HandlebarsTemplateEngine());
@@ -109,18 +101,19 @@ public class App {
         //get:show a form to update a department
         get("/departments/:id/edit", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            model.put("editDepartment", true);
+            model.put("editDepartments", true);
             Departments departments = departmentsDao.findById(Integer.parseInt(request.params("id")));
-            model.put("departments", departments);
+            model.put("department", departments);
             model.put("departments", departmentsDao.getAll());
-            return new ModelAndView(model, "department-form.hbs");
+            return new ModelAndView(model, "departments-form.hbs");
         }, new HandlebarsTemplateEngine());
+
 
         //post:process a form to update a department
         post("/departments/:id", (request, response) -> {
             Map<String, Object>model = new HashMap<>();
             int idOfDepartmentToEdit = Integer.parseInt(request.params("id"));
-            String newName = request.queryParams("newDepartmentName");
+            String newName = request.queryParams("newDepartmentsName");
             departmentsDao.update(idOfDepartmentToEdit, newName);
             response.redirect("/");
             return null;
@@ -128,25 +121,26 @@ public class App {
 
 
         //get:delete an individual staff
-        get("/departments/department_id/staff/:staff_id/delete", (request, response) -> {
+        get("/departments/:department_id/staff/:staff_id/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfStaffToDelete = Integer.parseInt(request.params("staff_id"));
+            int idOfStaffToDelete = Integer.parseInt(req.params("staff_id"));
             staffDao.deleteById(idOfStaffToDelete);
-            response.redirect("/");
+            res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
 
+
         //get:show an individual staff that is nested in a department
-        get("/departments/:department_id/staff/:staff_id", (request, response) -> {
-            Map<String, Object>model = new HashMap<>();
-            int idOfStaffToFind = Integer.parseInt(request.params("Staff_id"));
-            Staff foundStaff = staffDao.findById(idOfStaffToFind);
-            int idOfDepartmentToFind = Integer.parseInt("category_id");
-            Departments foundDepartment = departmentsDao.findById(idOfDepartmentToFind);
-            model.put("department", foundDepartment);
+        get("departments/:department_id/staff/:staff_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfStaffToFind = Integer.parseInt(req.params("staff_id")); //
+            Staff foundStaff = staffDao.findById(idOfStaffToFind); //use it to find staff
+            int idOfDepartmentToFind = Integer.parseInt(req.params("department_id"));
+            Departments foundDepartments = departmentsDao.findById(idOfDepartmentToFind);
+            model.put("department", foundDepartments);
             model.put("staff", foundStaff);
-            model.put("departments", departmentsDao.getAll());
-            return new ModelAndView(model, "staff-detail.hbs");
+            model.put("departments", departmentsDao.getAll()); //refresh list of links for navbar
+            return new ModelAndView(model, "staff-detail.hbs"); //individual staff page.
         }, new HandlebarsTemplateEngine());
 
         //get:show a form to update a staff
@@ -156,17 +150,19 @@ public class App {
             model.put("departments", allDepartments);
             Staff staff = staffDao.findById(Integer.parseInt(request.params("id")));
             model.put("staff", staff);
-            model.put("editTask", true);
+            model.put("editStaff", true);
             return new ModelAndView(model, "staff-form.hbs");
         }, new HandlebarsTemplateEngine());
+
+
 
         //post:process a form to update a staff
         post("/staff/:id", (request, response) -> {
             Map<String, Object>model = new HashMap<>();
             int staffToEditId = Integer.parseInt(request.params("id"));
             String newContent = request.queryParams("description");
-            int newDepartmentId = Integer.parseInt(request.queryParams("departmentId"));
-            staffDao.update(staffToEditId, newContent, newDepartmentId);
+            int newDepartmentsId = Integer.parseInt(request.queryParams("departmentId"));
+            staffDao.update(staffToEditId, newContent, newDepartmentsId);
             response.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
