@@ -1,17 +1,25 @@
 {{#partial "content"}}
-
+    <div class="col-md-4">
     {{#if editStaff}}
-        <h1>Edit Staff</h1>
+        <h1 xmlns="http://www.w3.org/1999/html">Edit Staff</h1>
         <form action="/staff/{{staff.id}}" method="post">
+            <br>
             <br>
             <label for="description">Edit this Staff's Name</label>
             <input id="description" name="description" type="text" value="{{staff.description}}">
             <br>
-            <label for="departmentId">Update this Staff's department:</label>
+            <br>
+            <label for="roles">Staff's New Role</label>
+            <input id="roles" name="roles" type="text" value="{{staff.roles}}">
+            <br>
+            <br>
+            <label for="departmentId">Update Department:</label>
             <select id="departmentId" name="departmentId">
                 {{#each departments}}
                     <option value="{{id}}">{{name}}</option>
                 {{/each}}
+                <br>
+                <br>
             </select>
             <p>Don't see the right department?<a href="/departments/new">Add a new one first</a> </p>
             <button type="submit" class="btn btn-default">Submit</button>
@@ -22,12 +30,21 @@
             {{#if departments}}
                 <label for="description">Staff Name</label>
                 <input id="description" name="description" type="text">
-                <label for="departmentId">Departmentalize this staff:</label>
+            <br>
+                <br>
+                <label for="roles">Roles</label>
+                <input id="roles" name="roles" type="text">
+            <br>
+                <br>
+                <label for="departmentId">Add to a Department:</label>
                 <select id="departmentId" name="departmentId">
+
                     {{#each departments}}
                         <option value="{{id}}">{{name}}</option>
                     {{/each}}
                 </select>
+                <br>
+                <br>
                 <p>Don't see the right Department?<a href="/departments/new">Add a new one first</a> </p>
             {{else}}
                 <h3>You will need to add a department before you add a staff. <a href="/departments/new">Add one here</a> </h3>
@@ -35,6 +52,7 @@
             <button type="submit" class="btn btn-default">Submit</button>
         </form>
     {{/if}}
+    </div>
 {{/partial}}
 
 {{> layout.hbs}}

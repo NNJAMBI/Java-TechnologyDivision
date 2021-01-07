@@ -7,9 +7,11 @@ public class Staff {
 private String description;
 private int departmentId;
 private int id;
+private String roles;
 
-public Staff(String description, int departmentId) {
+public Staff(String description, String roles, int departmentId) {
     this.description = description;
+    this.roles = roles;
     this.departmentId = departmentId;
 }
 
@@ -28,14 +30,20 @@ public void setDepartmentId(int departmentId) {
         Staff staff = (Staff) o;
         return id == staff.id &&
                 Objects.equals(description, staff.description);
+
+
     }
     @Override
     public int hashCode() {
-    return Objects.hash(description, id);
+    return Objects.hash(description, id, roles);
 }
 
 public void setDescription(String description) {
     this.description = description;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
 
 }
 public void setId(int id) {
@@ -49,4 +57,9 @@ public String getDescription() {
 public int getId() {
     return id;
 }
+
+public String getRoles() {
+    return roles;
+    }
+
 }

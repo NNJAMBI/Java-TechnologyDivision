@@ -1,13 +1,15 @@
 {{#partial "content"}}
+
     <h1>List of all DIT Staff</h1>
 
     {{# if staff}}
         {{#each staff }}
-            <p><a href="/departments/{{departmentId}}/staff/{{id}}">{{description}}</a> </p>
+            <p><a href="/departments/{{departmentId}}/staff/{{id}}">{{description}}{{roles}}</a> </p>
         {{/each}}
     {{else}}
         <p>No staff added</p>
     {{/if}}
+
 {{/partial}}
 
 {{> layout.hbs}}
