@@ -12,8 +12,19 @@ import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import static spark.Spark.*;
 
+
+
 public class App {
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; //return default port if heroku-port isn't set (i.e. on localhost)
+    }
+
     public static void main(String[] args) {
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
        // String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
         String connectionString = "postgres://yjbufbozhsqodl:b13925f10ff4c29a33788eb91786c992dde5fcedd2adafe758a15fa1f2bbdc52@ec2-3-90-124-60.compute-1.amazonaws.com:5432/d8upn63spugrrf";
