@@ -22,6 +22,6 @@ public class StaffTest  {
 
     //helper methods
     public Staff setUpNewStaff() {
-        return new Staff("Nancy Karanja", 1);
+        return new Staff("Nancy Karanja", "Developer", 1, "EK001");
     }
 }
