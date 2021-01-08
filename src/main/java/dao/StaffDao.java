@@ -15,7 +15,7 @@ public interface StaffDao {
     Staff findById(int id);
 
     //UPDATE
-    void update(int id, String content, int departmentId);
+    void update(int id, String content, int departmentId, String staff_id, String roles);
 
     //DELETE
     void deleteById(int id);

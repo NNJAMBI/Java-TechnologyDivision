@@ -16,7 +16,7 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
 
    @Override
     public void add(Staff staff) {
-       String sql = "INSERT INTO staff (description, departmentId) VALUES (:description, :departmentId)";
+       String sql = "INSERT INTO staff (description, departmentId, staff_id, roles) VALUES (:description, :departmentId, :staff_id, :roles)";
        try(Connection con = sql2o.open()){
            int id = (int) con.createQuery(sql, true)
                    .bind(staff)
@@ -47,13 +47,15 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
 
 
     @Override
-    public void update(int id, String newDescription, int newDepartmentId){
-        String sql = "UPDATE staff SET (description, departmentId) = (:description, :departmentId) WHERE id=:id";   //raw sql
+    public void update(int id, String newDescription, int newDepartmentId, String staff_id, String roles){
+        String sql = "UPDATE staff SET (description, departmentId, staff_id, roles) = (:description, :departmentId,:staff_id, :roles) WHERE id=:id";   //raw sql
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
                     .addParameter("description", newDescription)
                     .addParameter("departmentId", newDepartmentId)
                     .addParameter("id", id)
+                    .addParameter("staff_id", staff_id)
+                    .addParameter("roles", roles)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

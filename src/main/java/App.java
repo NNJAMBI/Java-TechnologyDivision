@@ -2,6 +2,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Map;
 
+import dao.DepartmentsDao;
 import dao.Sql2oDepartmentsDao;
 import dao.Sql2oStaffDao;
 import models.Departments;
@@ -62,14 +63,18 @@ public class App {
             model.put("departments", allDepartments);
             String description = request.queryParams("description");
             String roles = request.queryParams("roles");
+            String staff_id = request.queryParams("staff_id");
             int departmentId = Integer.parseInt(request.queryParams("departmentId"));
-            Staff newStaff = new Staff(description, roles, departmentId);
+            Staff newStaff = new Staff(description, roles, departmentId, staff_id);
             staffDao.add(newStaff);
             response.redirect("/");
             return null;
+
+
+
         }, new HandlebarsTemplateEngine());
 
-        //get:delete all departments and all staff
+                //get:delete all departments and all staff
         get("/departments/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             departmentsDao.clearAllDepartments();
@@ -116,14 +121,13 @@ public class App {
         //post:process a form to update a department
         post("/departments/:id", (request, response) -> {
             Map<String, Object>model = new HashMap<>();
-           // System.out.println(request.params());
-            int idOfDepartmentToEdit = Integer.parseInt(request.params("id"));
-            System.out.println(idOfDepartmentToEdit);
-            String newName = request.queryParams("name");
-            departmentsDao.update(idOfDepartmentToEdit, newName);
+            int departmentId = Integer.parseInt(request.params("id"));
+            String newName = request.queryParams("newDepartmentName");
+            departmentsDao.update(departmentId, newName);
             response.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());
+
 
         //get:delete an individual staff
         get("/departments/:department_id/staff/:staff_id/delete", (req, res) -> {
@@ -175,7 +179,9 @@ public class App {
             int staffToEditId = Integer.parseInt(request.params("id"));
             String newContent = request.queryParams("description");
             int newDepartmentsId = Integer.parseInt(request.queryParams("departmentId"));
-            staffDao.update(staffToEditId, newContent, newDepartmentsId);
+            String staff_id = request.queryParams("staff_id");
+            String roles = request.queryParams("roles");
+            staffDao.update(staffToEditId, newContent, newDepartmentsId, staff_id, roles);
             response.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine());

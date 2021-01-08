@@ -1,14 +1,15 @@
 {{#partial "content"}}
     <div class="col-md-4">
-    <p>Name: {{staff.description }}</p>
-    <p>Role: {{staff.role}}</p>
-    <p>Department: {{ department.name }}</p>
+        <p>Name: {{staff.description }}</p>
+        <p>Role: {{staff.roles}}</p>
+        <p>Department: {{ department.name }}</p>
+        <p>Staff Number: {{ staff.staff_id }}</p>
         <br>
         <br>
-    <p>
-        <a href="/staff/{{staff.id}}/edit">Edit Staff</a><br>
-        <a href="/departments/{{staff.departmentId}}/staff/{{staff.id}}/delete">Remove this staff</a>
-    </p>
+        <p>
+            <a href="/staff/{{staff.id}}/edit">Edit Staff</a><br>
+            <a href="/departments/{{staff.departmentId}}/staff/{{staff.id}}/delete">Remove this staff</a>
+        </p>
     </div>
 {{/partial}}
 
