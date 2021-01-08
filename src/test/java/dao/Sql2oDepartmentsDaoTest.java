@@ -104,9 +104,9 @@ public class Sql2oDepartmentsDaoTest {
         Departments departments = setupNewDepartment();
         departmentsDao.add(departments);
         int departmentsId = departments.getId();
-        Staff newStaff = new Staff("Nancy Karanja", departmentsId);
-        Staff otherStaff = new Staff("James Mbugua", departmentsId);
-        Staff thirdStaff = new Staff("Joyce Wambui", departmentsId);
+        Staff newStaff = new Staff("Nancy Karanja", "Developer", departmentsId, "EK001");
+        Staff otherStaff = new Staff("James Mbugua", "Developer", departmentsId, "EK002");
+        Staff thirdStaff = new Staff("Joyce Wambui", "Developer", departmentsId, "EK003");
         staffDao.add(newStaff);
         staffDao.add(otherStaff);
         assertEquals(2, departmentsDao.getAllStaffByDepartments(departmentsId).size());

@@ -66,7 +66,7 @@ public class Sql2oStaffDaoTest {
         Staff staff = setupNewStaff();
         staffDao.add(staff);
 
-        staffDao.update(staff.getId(), "James Mbugua", 1);
+        staffDao.update(staff.getId(), "James Mbugua", 1, "EK001","Developer");
         Staff updatedStaff = staffDao.findById(staff.getId());
         assertNotEquals(initialDescription, updatedStaff.getDescription());
     }
@@ -82,7 +82,7 @@ public class Sql2oStaffDaoTest {
     @Test
     public void clearAllClearsAll() throws Exception{
         Staff staff = setupNewStaff();
-        Staff otherStaff = new Staff("James Mbugua", 2);
+        Staff otherStaff = new Staff("James Mbugua", "Developer", 2, "EK001");
         staffDao.add(staff);
         staffDao.add(otherStaff);
         int daoSize = staffDao.getAll().size();
@@ -99,7 +99,7 @@ public class Sql2oStaffDaoTest {
     }
 
     public Staff setupNewStaff(){
-        return new Staff("Nancy Karanja", 1);
+        return new Staff("Nancy Karanja",  "Developer", 1, "EK001");
     }
 
 
