@@ -1,2 +1,2 @@
-web:    java -cp "target/dependency/*":target/classes App
+web: ./build/install/techDivision/bin/techDivision
 

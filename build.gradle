@@ -3,6 +3,7 @@ plugins {
     id 'application'
 }
 
+
 group 'Technology Division'
 version '1.0-SNAPSHOT'
 
@@ -14,8 +15,10 @@ repositories {
     mavenCentral()
 }
 
-task stage(dependsOn: ['build', 'clean'])
-build.mustRunAfter clean
+applicationName = "techDivision"
+
+task stage(dependsOn: [ 'clean', installDist])
+
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
