@@ -3,7 +3,7 @@
     <p>List of all staff in this Department</p>
     <ul>
         {{#each staff}}
-            <li><p><a href="/departments/{{department.id}}/staff/{{id}}">{{description}}{{roles}} </a> </p></li>
+            <li><p><a href="/departments/{{department.id}}/staff/{{id}}">{{description}} </a> </p></li>
         {{/each}}
     </ul>
     <a href="/departments/{{department.id}}/edit">Edit this department</a><br>

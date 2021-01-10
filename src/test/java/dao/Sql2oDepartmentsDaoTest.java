@@ -22,8 +22,10 @@ public class Sql2oDepartmentsDaoTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        String connectionString ="jdbc:postgres://ec2-3-208-50-226.compute-1.amazonaws.com:5432/dcpqq9n6c4677t";
-        Sql2o sql2o = new Sql2o(connectionString, "jldbzipmnofvzf", "1f1f65b181c9bb637a9a47187150974e4f98a171629a19c94edec1afcbec9840");
+        String connectionString = "jdbc:postgresql://localhost:5432/technologydivision_test";
+        Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
+       // String connectionString ="jdbc:postgres://ec2-3-208-50-226.compute-1.amazonaws.com:5432/dcpqq9n6c4677t";
+        //Sql2o sql2o = new Sql2o(connectionString, "jldbzipmnofvzf", "1f1f65b181c9bb637a9a47187150974e4f98a171629a19c94edec1afcbec9840");
         departmentsDao = new Sql2oDepartmentsDao(sql2o);
         staffDao = new Sql2oStaffDao(sql2o);
         conn = sql2o.open();

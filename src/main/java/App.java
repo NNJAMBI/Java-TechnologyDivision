@@ -10,8 +10,8 @@ import models.Staff;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import static spark.Spark.*;
 
+import static spark.Spark.*;
 
 
 public class App {
@@ -26,15 +26,15 @@ public class App {
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
-       // String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
-        String connectionString = "jdbc:postgresql://ec2-3-90-124-60.compute-1.amazonaws.com/d8upn63spugrrf";
-        //Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
-        Sql2o sql2o = new Sql2o(connectionString, "yjbufbozhsqodl", "b13925f10ff4c29a33788eb91786c992dde5fcedd2adafe758a15fa1f2bbdc52");
+        String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
+        //String connectionString = "jdbc:postgresql://ec2-3-90-124-60.compute-1.amazonaws.com/d8upn63spugrrf";
+        Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
+        // Sql2o sql2o = new Sql2o(connectionString, "yjbufbozhsqodl", "b13925f10ff4c29a33788eb91786c992dde5fcedd2adafe758a15fa1f2bbdc52");
         Sql2oStaffDao staffDao = new Sql2oStaffDao(sql2o);
         Sql2oDepartmentsDao departmentsDao = new Sql2oDepartmentsDao(sql2o);
 
 //show all Staff in all departments and all departments
-        get("/",(request, response) -> {
+        get("/", (request, response) -> {
             Map<String, Object> model = new HashMap<String, Object>();
             List<Departments> allDepartments = departmentsDao.getAll();
             model.put("departments", allDepartments);
@@ -44,7 +44,7 @@ public class App {
         }, new HandlebarsTemplateEngine());
 
 //get:show form to create a new department
-        get("/departments/new",(request, response) -> {
+        get("/departments/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Departments> departments = departmentsDao.getAll();
             model.put("departments", departments);
@@ -82,12 +82,9 @@ public class App {
             staffDao.add(newStaff);
             response.redirect("/");
             return null;
-
-
-
         }, new HandlebarsTemplateEngine());
 
-                //get:delete all departments and all staff
+        //get:delete all departments and all staff
         get("/departments/delete", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             departmentsDao.clearAllDepartments();
@@ -133,7 +130,7 @@ public class App {
 
         //post:process a form to update a department
         post("/departments/:id", (request, response) -> {
-            Map<String, Object>model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
             int departmentId = Integer.parseInt(request.params("id"));
             String newName = request.queryParams("newDepartmentName");
             departmentsDao.update(departmentId, newName);
@@ -176,7 +173,7 @@ public class App {
 
         //get:show a form to update a staff
         get("/staff/:id/edit", (request, response) -> {
-            Map<String, Object>model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
             List<Departments> allDepartments = departmentsDao.getAll();
             model.put("departments", allDepartments);
             Staff staff = staffDao.findById(Integer.parseInt(request.params("id")));
@@ -188,7 +185,7 @@ public class App {
 
         //post:process a form to update a staff
         post("/staff/:id", (request, response) -> {
-            Map<String, Object>model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
             int staffToEditId = Integer.parseInt(request.params("id"));
             String newContent = request.queryParams("description");
             int newDepartmentsId = Integer.parseInt(request.queryParams("departmentId"));
