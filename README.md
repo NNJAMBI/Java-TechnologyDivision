@@ -33,7 +33,7 @@ To access this project, you will need to access it from github.
 - postgreSQL
 - Heroku
 
-## link to live site on GitHub Pages
+## link to deployed live site on Heroku
 https://technologydivision.herokuapp.com/
 
 
