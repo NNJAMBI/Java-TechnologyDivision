@@ -53,10 +53,6 @@ li a {
   display: block;
 }
 
-.dropdown-content li a{
-  color: #080101;
-}
-
 .dropdown-content a:hover {
   background-color: #080101;
   color: #080101 !important;
@@ -93,4 +89,13 @@ img{
 
 .nav li a{
   color: rgb(240, 233, 233);
+}
+
+.table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th {
+  height: 70px;
 }
