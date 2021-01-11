@@ -9,7 +9,7 @@ Nancy Karanja
 
 
 ## Description of project 
-# This application allows user to do the below
+# This application allows user to do the below;
 - Add a new staff
 - Add a new department
 - View a list of all departments and the staff in them
