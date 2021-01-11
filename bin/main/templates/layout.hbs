@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
     <ul class="nav nav-tabs">
         <li role="presentation"><a href="/">Home</a> </li>
         <li role="presentation"><a href="/staff/new">Add a New Staff</a> </li>
@@ -28,28 +29,37 @@
                 {{/if}}
             </ul>
         </li>
-        <p>Safaricom, FOR YOU!</p>
     </ul>
     <div class="container">
         <!--begin main template-->
         <div class="page-header">
             <h1>Welcome to Safaricom Technology Division. </h1>
-            <p><medium>Build an Always-on, Always-secure 'digital first' technologyenvironment</medium></p>
+            <p>
+                <medium>Build an Always-on, Always-secure 'digital first' technologyenvironment</medium>
+            </p>
         </div>
         <div class="col-md-12">
             {{#block "content"}}{{/block}}
         </div>
     </div>
-    <!--end of main template-->
-    {{#block "footer"}}
-    <footer class="footer">
-        <div class="container">
+
+    <br>
+    
+    <div class="container">
             <hr>
             <p class="text-muted">
                 <a href="/departments/delete">Delete all Departments & Staff</a><br>
                 <a href="/staff/delete">Remove all Staff</a>
             </p>
+
         </div>
+    <!--end of main template-->
+    {{#block "footer"}}
+    <footer class="footer">
+        <div class="col-md-4">
+            <img src="/sfc.jpeg.png" alt="Fjords" style="width:100%">
+        </div>
+        
     </footer>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

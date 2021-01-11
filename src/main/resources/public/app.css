@@ -3,7 +3,6 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: rgb(11, 12, 11);
-  background-color: rgb(248, 250, 249);
   background-size: inherit;
 }
 
@@ -41,7 +40,7 @@ li a {
 }
 
 .dropdown-content a {
-  color: black;
+  color: #080101!important;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -49,10 +48,12 @@ li a {
 
 .dropdown-content a:hover {
   background-color: #080101;
+  color: #080101 !important;
 }
 
 .dropdown:hover .dropdown-content {
   display: block;
+  color: #080101!important;
 }
 
 button[type=submit] {
@@ -68,4 +69,17 @@ button[type=submit] {
 a {
   
   color:#309c3f;
+}
+
+img{
+  background-image: url(./sfc.jpeg.png);
+  size: 0px;
+}
+
+.logo {
+  text-align: center;
+}
+
+.nav li a{
+  color: #fff;
 }
