@@ -6,19 +6,19 @@
         <br>
         <br>
         <label for="description">Edit this Staff's Name</label>
-        <input id="description" name="description" type="text" value="{{staff.description}}">
+        <input id="description" name="description" type="text" value="{{staff.description}}" required>
         <br>
         <br>
         <label for="roles">Staff's New Role</label>
-        <input id="roles" name="roles" type="text" value="{{staff.roles}}">
+        <input id="roles" name="roles" type="text" value="{{staff.roles}}" required>
         <br>
         <br>
         <label for="staff_id">Staff Number</label>
-        <input id="staff_id" name="staff_id" type="text" value="{{staff.staff_id}}">
+        <input id="staff_id" name="staff_id" type="text" value="{{staff.staff_id}}" required>
         <br>
         <br>
         <label for="departmentId">Update Department:</label>
-        <select id="departmentId" name="departmentId">
+        <select id="departmentId" name="departmentId" required>
             {{#each departments}}
             <option value="{{id}}">{{name}}</option>
             {{/each}}
@@ -33,19 +33,19 @@
     <form action="/staff" method="post">
         {{#if departments}}
         <label for="description">Staff Name</label>
-        <input id="description" name="description" type="text">
+        <input id="description" name="description" type="text" required>
         <br>
         <br>
         <label for="roles">Roles</label>
-        <input id="roles" name="roles" type="text">
+        <input id="roles" name="roles" type="text" required>
         <br>
         <br>
         <label for="staff_id">Staff Number</label>
-        <input id="staff_id" name="staff_id" type="text" value="{{staff.staff_id}}">
+        <input id="staff_id" name="staff_id" type="text" value="{{staff.staff_id}}" required>
         <br>
         <br>
         <label for="departmentId">Add to a Department:</label>
-        <select id="departmentId" name="departmentId">
+        <select id="departmentId" name="departmentId" required>
 
             {{#each departments}}
             <option value="{{id}}">{{name}}</option>
