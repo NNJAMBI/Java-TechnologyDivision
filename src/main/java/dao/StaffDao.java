@@ -9,13 +9,13 @@ public interface StaffDao {
     List<Staff> getAll();
 
     //CREATE
-    void add(Staff staff);
+    String add(Staff staff);
 
     //READ
     Staff findById(int id);
 
     //UPDATE
-    void update(int id, String content, int departmentId, String staff_id, String roles);
+    String update(int id, String content, int departmentId, String staff_id, String roles);
 
     //DELETE
     void deleteById(int id);

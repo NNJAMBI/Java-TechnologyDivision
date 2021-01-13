@@ -26,9 +26,9 @@ public class App {
     public static void main(String[] args) {
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
-       // String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
+        //String connectionString = "jdbc:postgresql://localhost:5432/technologydivision";
         String connectionString = "jdbc:postgresql://ec2-3-90-124-60.compute-1.amazonaws.com/d8upn63spugrrf";
-       // Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
+        //Sql2o sql2o = new Sql2o(connectionString, "postgres", "admin");
         Sql2o sql2o = new Sql2o(connectionString, "yjbufbozhsqodl", "b13925f10ff4c29a33788eb91786c992dde5fcedd2adafe758a15fa1f2bbdc52");
         Sql2oStaffDao staffDao = new Sql2oStaffDao(sql2o);
         Sql2oDepartmentsDao departmentsDao = new Sql2oDepartmentsDao(sql2o);
@@ -79,9 +79,10 @@ public class App {
             String staff_id = request.queryParams("staff_id");
             int departmentId = Integer.parseInt(request.queryParams("departmentId"));
             Staff newStaff = new Staff(description, roles, departmentId, staff_id);
-            staffDao.add(newStaff);
-            response.redirect("/");
-            return null;
+            String message = staffDao.add(newStaff);
+            model.put("message", message);
+           // response.redirect("/");
+           return new ModelAndView(model,"staff-form.hbs");
         }, new HandlebarsTemplateEngine());
 
         //get:delete all departments and all staff
@@ -191,9 +192,12 @@ public class App {
             int newDepartmentsId = Integer.parseInt(request.queryParams("departmentId"));
             String staff_id = request.queryParams("staff_id");
             String roles = request.queryParams("roles");
-            staffDao.update(staffToEditId, newContent, newDepartmentsId, staff_id, roles);
-            response.redirect("/");
-            return null;
+            String message = staffDao.update(staffToEditId, newContent, newDepartmentsId, staff_id, roles);
+            model.put("message", message);
+            //response.redirect("/");
+            //return null;
+            return new ModelAndView(model,"staff-form.hbs");
         }, new HandlebarsTemplateEngine());
     }
+
 }

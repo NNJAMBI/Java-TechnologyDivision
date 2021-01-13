@@ -15,7 +15,7 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
     }
 
    @Override
-    public void add(Staff staff) {
+    public String add(Staff staff) {
        String sql = "INSERT INTO staff (description, departmentId, staff_id, roles) VALUES (:description, :departmentId, :staff_id, :roles)";
        try(Connection con = sql2o.open()){
            int id = (int) con.createQuery(sql, true)
@@ -23,9 +23,11 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
                    .executeUpdate()
                    .getKey();
            staff.setId(id);
+           return "Success! Click on Home to view all Staff";
        } catch (Sql2oException ex) {
            System.out.println(ex);
        }
+       return "Error!!, Staff EK number already in use";
    }
 
    @Override
@@ -47,7 +49,7 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
 
 
     @Override
-    public void update(int id, String newDescription, int newDepartmentId, String staff_id, String roles){
+    public String update(int id, String newDescription, int newDepartmentId, String staff_id, String roles){
         String sql = "UPDATE staff SET (description, departmentId, staff_id, roles) = (:description, :departmentId,:staff_id, :roles) WHERE id=:id";   //raw sql
         try(Connection con = sql2o.open()){
             con.createQuery(sql)
@@ -57,9 +59,11 @@ public class Sql2oStaffDao implements StaffDao { //implementing our interface
                     .addParameter("staff_id", staff_id)
                     .addParameter("roles", roles)
                     .executeUpdate();
+            return "Success! Click on Home to view all Staff";
         } catch (Sql2oException ex) {
             System.out.println(ex);
         }
+        return "Error!!, Staff EK number already in use";
     }
 
     @Override

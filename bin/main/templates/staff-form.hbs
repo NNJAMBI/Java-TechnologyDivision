@@ -1,6 +1,7 @@
 {{#partial "content"}}
 <div class="col-md-4">
     {{#if editStaff}}
+        <div class="message"><p>{{message}}</p></div>
     <h1 xmlns="http://www.w3.org/1999/html">Edit Staff</h1>
     <form action="/staff/{{staff.id}}" method="post">
         <br>
@@ -29,6 +30,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
     {{else}}
+       <div class="message"><p>{{message}}</p></div>
     <h2>Add a new Staff!</h2>
     <form action="/staff" method="post">
         {{#if departments}}
@@ -53,7 +55,7 @@
         </select>
         <br>
         <br>
-        <p>Don't see the right Department?<a href="/departments/new">Add a new one first</a></p>
+        <p>Don't see the right Department? <a href="/departments/new">Add a new one first</a></p>
         {{else}}
         <h3>You will need to add a department before you add a staff. <a href="/departments/new">Add one
                 here</a></h3>

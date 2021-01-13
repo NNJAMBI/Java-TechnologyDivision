@@ -99,3 +99,7 @@ img{
 th {
   height: 70px;
 }
+
+.message {
+color: rgb(240, 34, 34);
+}
